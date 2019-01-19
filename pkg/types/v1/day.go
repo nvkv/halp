@@ -38,8 +38,7 @@ func (d Day) IsLenten() bool {
 	}
 }
 
-func (d Day) Validate() error {
-	// Collect all meals in a slice
+func (d Day) AllMeals() []Meal {
 	meals := []Meal{
 		d.Breakfast,
 		d.Lunch,
@@ -49,7 +48,12 @@ func (d Day) Validate() error {
 	for _, v := range d.ExtraMeals {
 		meals = append(meals, v)
 	}
+	return meals
+}
 
+func (d Day) Validate() error {
+	// Collect all meals in a slice
+	meals := d.AllMeals()
 	// Lent check
 	if d.IsLenten() {
 		for _, meal := range meals {
