@@ -32,20 +32,21 @@ func dummySet() []data.Meal {
 	}
 }
 
-func (ds DummyDatasource) AllMeals() []data.Meal {
+func (ds DummyDatasource) AllMeals() ([]data.Meal, error) {
 	if len(ds.meals) == 0 {
 		ds.meals = dummySet()
 	}
 
-	return ds.meals
+	return ds.meals, nil
 }
 
-func (ds DummyDatasource) Select(query datasource.Query) []data.Meal {
+func (ds DummyDatasource) Select(query datasource.Query) ([]data.Meal, error) {
 	result := []data.Meal{}
-	for _, meal := range ds.AllMeals() {
+	meals, _ := ds.AllMeals()
+	for _, meal := range meals {
 		if meal.Type == query.MealType && meal.IsLenten == query.IsLenten && meal.IsLavish == query.IsLavish {
 			result = append(result, meal)
 		}
 	}
-	return result
+	return result, nil
 }

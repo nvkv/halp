@@ -11,6 +11,6 @@ type Query struct {
 }
 
 type Datasource interface {
-	AllMeals() []data.Meal
-	Select(query Query) []data.Meal
+	AllMeals() ([]data.Meal, error)
+	Select(query Query) ([]data.Meal, error)
 }
