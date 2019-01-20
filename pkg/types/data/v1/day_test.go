@@ -8,12 +8,12 @@ import (
 	"testing/quick"
 	"time"
 
-	"github.com/nvkv/halp/pkg/test_helpers/v1"
+	"github.com/nvkv/halp/pkg/testhelpers/v1"
 )
 
 func (d Day) Generate(rand *rand.Rand, size int) reflect.Value {
 	day := Day{
-		Date:      test_helpers.RandomDate(rand),
+		Date:      testhelpers.RandomDate(rand),
 		Breakfast: randomMeal(rand),
 		Lunch:     randomMeal(rand),
 		Dinner:    randomMeal(rand),
@@ -33,7 +33,7 @@ func TestLentDetection(t *testing.T) {
 		return d.IsLenten() == shouldBeLenten
 	}
 
-	if err := quick.Check(lent, test_helpers.DefaultConfig); err != nil {
+	if err := quick.Check(lent, testhelpers.DefaultConfig); err != nil {
 		t.Error(err)
 	}
 }
@@ -64,7 +64,7 @@ func TestValidation(t *testing.T) {
 		return true
 	}
 
-	if err := quick.Check(validate, test_helpers.DefaultConfig); err != nil {
+	if err := quick.Check(validate, testhelpers.DefaultConfig); err != nil {
 		t.Error(err)
 	}
 }
