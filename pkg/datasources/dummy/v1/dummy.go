@@ -1,38 +1,38 @@
 package dummy
 
 import (
-	"github.com/nvkv/halp/pkg/datasource/v1"
-	"github.com/nvkv/halp/pkg/types/v1"
+	data "github.com/nvkv/halp/pkg/types/data/v1"
+	"github.com/nvkv/halp/pkg/types/datasource/v1"
 )
 
 type DummyDatasource struct {
-	meals []types.Meal
+	meals []data.Meal
 }
 
-func dummySet() []types.Meal {
-	return []types.Meal{
-		types.Meal{
+func dummySet() []data.Meal {
+	return []data.Meal{
+		data.Meal{
 			Name:     "Irish breakfast",
 			IsLenten: false,
 			IsLavish: false,
-			Type:     types.Breakfast,
+			Type:     data.Breakfast,
 		},
-		types.Meal{
+		data.Meal{
 			Name:     "Sushi",
 			IsLenten: true,
 			IsLavish: true,
-			Type:     types.Lunch,
+			Type:     data.Lunch,
 		},
-		types.Meal{
+		data.Meal{
 			Name:     "Shwarma",
 			IsLenten: false,
 			IsLavish: false,
-			Type:     types.Dinner,
+			Type:     data.Dinner,
 		},
 	}
 }
 
-func (ds DummyDatasource) AllMeals() []types.Meal {
+func (ds DummyDatasource) AllMeals() []data.Meal {
 	if len(ds.meals) == 0 {
 		ds.meals = dummySet()
 	}
@@ -40,8 +40,8 @@ func (ds DummyDatasource) AllMeals() []types.Meal {
 	return ds.meals
 }
 
-func (ds DummyDatasource) Select(query datasource.Query) []types.Meal {
-	result := []types.Meal{}
+func (ds DummyDatasource) Select(query datasource.Query) []data.Meal {
+	result := []data.Meal{}
 	for _, meal := range ds.AllMeals() {
 		if meal.Type == query.MealType && meal.IsLenten == query.IsLenten && meal.IsLavish == query.IsLavish {
 			result = append(result, meal)
