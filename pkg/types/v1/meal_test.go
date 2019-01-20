@@ -15,7 +15,7 @@ func randomMeal(rand *rand.Rand) Meal {
 
 	meal := Meal{
 		Id:       id,
-		Type:     MealType(rand.Int31n(3)),
+		Type:     MealType(rand.Int31n(4)),
 		Name:     name,
 		IsLenten: rand.Int31n(2) > 0,
 		IsLavish: rand.Int31n(2) > 0,
