@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/nvkv/halp/pkg/datasources/dummy/v1"
 	"github.com/nvkv/halp/pkg/types/data/v1"
-	"github.com/nvkv/pkg/types/datasource/v1"
+	"github.com/nvkv/halp/pkg/types/datasource/v1"
 )
 
 func main() {
