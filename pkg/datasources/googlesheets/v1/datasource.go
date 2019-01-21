@@ -29,6 +29,19 @@ func (s Spreadsheet) AllMeals() ([]data.Meal, error) {
 	return s.meals, nil
 }
 
+func checkFieldValue(meal data.Meal, field datasource.QueryField, value interface{}) bool {
+	switch field {
+	case datasource.MealTypeField:
+		return meal.Type == data.MealType(value.(int))
+	case datasource.IsLentenField:
+		return meal.IsLenten == value.(bool)
+	case datasource.IsLavishField:
+		return meal.IsLavish == value.(bool)
+	default:
+		return false
+	}
+}
+
 func (s Spreadsheet) Select(query datasource.Query) ([]data.Meal, error) {
 	result := []data.Meal{}
 	meals, err := s.AllMeals()
@@ -36,7 +49,14 @@ func (s Spreadsheet) Select(query datasource.Query) ([]data.Meal, error) {
 		return nil, err
 	}
 	for _, meal := range meals {
-		if meal.Type == query.MealType && meal.IsLenten == query.IsLenten && meal.IsLavish == query.IsLavish {
+		var matching = true
+		for k, v := range query {
+			if checkFieldValue(meal, k, v) == false {
+				matching = false
+				break
+			}
+		}
+		if matching {
 			result = append(result, meal)
 		}
 	}

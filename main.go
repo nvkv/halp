@@ -30,9 +30,8 @@ func main() {
 	}
 
 	searchResults, err := halpSheet.Select(datasource.Query{
-		MealType: data.Lunch,
-		IsLenten: true,
-		IsLavish: false,
+		datasource.MealTypeField: data.Lunch,
+		datasource.IsLentenField: true,
 	})
 	if err != nil {
 		panic(err)

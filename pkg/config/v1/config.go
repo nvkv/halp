@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/hashicorp/hcl"
 	"io/ioutil"
-	"os"
 )
 
 type Config struct {
@@ -34,13 +33,6 @@ func ParseConfig(hclText string) (*Config, error) {
 	}
 
 	return result, nil
-}
-
-func HasConfigFile() bool {
-	if _, err := os.Stat(DefaultConfigLocation()); err != nil {
-		return false
-	}
-	return true
 }
 
 func LoadDefaultConfig() (Config, error) {

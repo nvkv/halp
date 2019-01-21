@@ -4,11 +4,15 @@ import (
 	"github.com/nvkv/halp/pkg/types/data/v1"
 )
 
-type Query struct {
-	MealType data.MealType
-	IsLenten bool
-	IsLavish bool
-}
+type QueryField int
+
+const (
+	MealTypeField = iota
+	IsLentenField
+	IsLavishField
+)
+
+type Query map[QueryField]interface{}
 
 type Datasource interface {
 	AllMeals() ([]data.Meal, error)

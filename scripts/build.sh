@@ -10,7 +10,7 @@ cd "$BUILD_DIR"
 
 VERSION=${HALP_VERSION:-alpha}
 
-TARGET_GOOSES=("darwin")
+TARGET_GOOSES=("linux" "darwin")
 
 for OS in ${TARGET_GOOSES[@]}
 do
