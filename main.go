@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"time"
 	"github.com/nvkv/halp/pkg/config/v1"
 	"github.com/nvkv/halp/pkg/datasources/googlesheets/v1"
-	"github.com/nvkv/halp/pkg/types/data/v1"
-	"github.com/nvkv/halp/pkg/types/datasource/v1"
+	"github.com/nvkv/halp/pkg/schedule/v1"
+//	"github.com/nvkv/halp/pkg/types/data/v1"
+//	"github.com/nvkv/halp/pkg/types/datasource/v1"
 )
 
 func main() {
@@ -20,24 +22,10 @@ func main() {
 		SheetID:     cfg.Datasource.GoogleSheets.SheetID,
 	}
 
-	meals, err := halpSheet.AllMeals()
+	day, err := schedule.ScheduleDay(time.Now(), halpSheet)
 	if err != nil {
 		panic(err)
 	}
 
-	for _, meal := range meals {
-		fmt.Printf("%#v\n", meal)
-	}
-
-	searchResults, err := halpSheet.Select(datasource.Query{
-		datasource.MealTypeField: data.Lunch,
-		datasource.IsLentenField: true,
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	for _, meal := range searchResults {
-		fmt.Printf("FOUND: %#v\n", meal)
-	}
+	fmt.Printf("%v\n", day)
 }

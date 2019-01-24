@@ -14,8 +14,8 @@ type Day struct {
 	ExtraMeals map[string]Meal
 }
 
-func (d Day) IsHoliday() bool {
-	switch d.Date.Weekday() {
+func IsHoliday(date time.Time) bool {
+	switch date.Weekday() {
 	case time.Saturday:
 		fallthrough
 	case time.Sunday:
@@ -25,10 +25,14 @@ func (d Day) IsHoliday() bool {
 	}
 }
 
-func (d Day) IsLenten() bool {
+func (d Day) IsHoliday() bool {
+	return IsHoliday(d.Date)
+}
+
+func IsLenten(date time.Time) bool {
 	// TODO: This is default Orthodox lenten weekdays
 	// Something more complicated should be implemented later
-	switch d.Date.Weekday() {
+	switch date.Weekday() {
 	case time.Wednesday:
 		fallthrough
 	case time.Friday:
@@ -36,6 +40,10 @@ func (d Day) IsLenten() bool {
 	default:
 		return false
 	}
+}
+
+func (d Day) IsLenten() bool {
+	return IsLenten(d.Date)
 }
 
 func (d Day) AllMeals() []Meal {
@@ -63,4 +71,28 @@ func (d Day) Validate() error {
 		}
 	}
 	return nil
+}
+
+func (d Day) String() string {
+	fast := "No fast today!"
+	if d.IsLenten() {
+		fast = "Fast day!"
+	}
+	str := fmt.Sprintf(`
+%v, %v
+
+%s
+`,
+		d.Date.Format("2006-01-02"),
+		d.Date.Weekday(),
+		fast,
+	)
+
+	for _, meal := range d.AllMeals() {
+		if meal != (Meal{}) {
+			str += fmt.Sprintf("%s\n", meal)
+		}
+	}
+
+	return str
 }
