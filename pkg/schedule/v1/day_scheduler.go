@@ -20,11 +20,11 @@ func pickRandomMeal(meals []data.Meal) data.Meal {
 func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 	rand.Seed(time.Now().UTC().UnixNano())
 	isHoliday := data.IsHoliday(date)
-	isLenten := data.IsLenten(date)
+	isFasten := data.IsFasten(date)
 
 	breakfasts, err := ds.Select(datasource.Query{
 		datasource.MealTypeField: data.Breakfast,
-		datasource.IsLentenField: isLenten,
+		datasource.IsFastenField: isFasten,
 		datasource.IsLavishField: isHoliday,
 	})
 	if err != nil {
@@ -34,7 +34,7 @@ func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 
 	lunches, err := ds.Select(datasource.Query{
 		datasource.MealTypeField: data.Lunch,
-		datasource.IsLentenField: isLenten,
+		datasource.IsFastenField: isFasten,
 		datasource.IsLavishField: isHoliday,
 	})
 	if err != nil {
@@ -44,7 +44,7 @@ func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 
 	dinners, err := ds.Select(datasource.Query{
 		datasource.MealTypeField: data.Dinner,
-		datasource.IsLentenField: isLenten,
+		datasource.IsFastenField: isFasten,
 		datasource.IsLavishField: isHoliday,
 	})
 	if err != nil {

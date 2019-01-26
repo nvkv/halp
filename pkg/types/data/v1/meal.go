@@ -13,11 +13,16 @@ const (
 
 func (t MealType) String() string {
 	switch t {
-	case Breakfast: return "Breakfast"
-	case Lunch: return "Lunch"
-	case Dinner: return "Dinner"
-	case Snack: return "Snack"
-	default: return "Unknown type of meal"
+	case Breakfast:
+		return "Breakfast"
+	case Lunch:
+		return "Lunch"
+	case Dinner:
+		return "Dinner"
+	case Snack:
+		return "Snack"
+	default:
+		return "Unknown type of meal"
 	}
 }
 
@@ -25,7 +30,7 @@ type Meal struct {
 	Id       string
 	Type     MealType
 	Name     string
-	IsLenten bool
+	IsFasten bool
 	IsLavish bool
 }
 

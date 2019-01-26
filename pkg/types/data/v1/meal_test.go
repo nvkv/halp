@@ -21,7 +21,7 @@ func randomMeal(rand *rand.Rand) Meal {
 		Id:       id,
 		Type:     MealType(rand.Int31n(4)),
 		Name:     name,
-		IsLenten: rand.Int31n(2) > 0,
+		IsFasten: rand.Int31n(2) > 0,
 		IsLavish: rand.Int31n(2) > 0,
 	}
 	return meal

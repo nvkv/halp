@@ -8,7 +8,7 @@ type QueryField int
 
 const (
 	MealTypeField = iota
-	IsLentenField
+	IsFastenField
 	IsLavishField
 )
 
