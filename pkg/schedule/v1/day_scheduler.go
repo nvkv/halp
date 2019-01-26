@@ -1,8 +1,9 @@
 package schedule
 
 import (
-	"time"
 	"math/rand"
+	"time"
+
 	"github.com/nvkv/halp/pkg/types/data/v1"
 	"github.com/nvkv/halp/pkg/types/datasource/v1"
 )
@@ -13,7 +14,7 @@ func pickRandomMeal(meals []data.Meal) data.Meal {
 	if mealCount == 0 {
 		return data.Meal{}
 	}
-	return meals[rand.Intn(mealCount - 1)]
+	return meals[rand.Intn(mealCount)]
 }
 
 func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
@@ -52,10 +53,10 @@ func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 	dinner := pickRandomMeal(dinners)
 
 	day := data.Day{
-		Date: date,
+		Date:      date,
 		Breakfast: breakfast,
-		Lunch: lunch,
-		Dinner: dinner,
+		Lunch:     lunch,
+		Dinner:    dinner,
 	}
 
 	if err := day.Validate(); err != nil {
