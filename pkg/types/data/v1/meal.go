@@ -30,7 +30,7 @@ type Meal struct {
 	Id       string
 	Type     MealType
 	Name     string
-	IsFasten bool
+	IsLenten bool
 	IsLavish bool
 }
 

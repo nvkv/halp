@@ -13,19 +13,19 @@ func dummySet() []data.Meal {
 	return []data.Meal{
 		data.Meal{
 			Name:     "Irish breakfast",
-			IsFasten: false,
+			IsLenten: false,
 			IsLavish: false,
 			Type:     data.Breakfast,
 		},
 		data.Meal{
 			Name:     "Sushi",
-			IsFasten: true,
+			IsLenten: true,
 			IsLavish: true,
 			Type:     data.Lunch,
 		},
 		data.Meal{
 			Name:     "Shwarma",
-			IsFasten: false,
+			IsLenten: false,
 			IsLavish: false,
 			Type:     data.Dinner,
 		},
@@ -44,7 +44,7 @@ func (ds DummyDatasource) Select(query datasource.Query) ([]data.Meal, error) {
 	result := []data.Meal{}
 	meals, _ := ds.AllMeals()
 	for _, meal := range meals {
-		if meal.Type == query.MealType && meal.IsFasten == query.IsFasten && meal.IsLavish == query.IsLavish {
+		if meal.Type == query.MealType && meal.IsLenten == query.IsAFastDay && meal.IsLavish == query.IsLavish {
 			result = append(result, meal)
 		}
 	}

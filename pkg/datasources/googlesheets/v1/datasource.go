@@ -33,8 +33,8 @@ func checkFieldValue(meal data.Meal, field datasource.QueryField, value interfac
 	switch field {
 	case datasource.MealTypeField:
 		return meal.Type == data.MealType(value.(int))
-	case datasource.IsFastenField:
-		return meal.IsFasten == value.(bool)
+	case datasource.IsAFastDayField:
+		return meal.IsLenten == value.(bool)
 	case datasource.IsLavishField:
 		return meal.IsLavish == value.(bool)
 	default:

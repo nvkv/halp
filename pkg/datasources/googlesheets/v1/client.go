@@ -101,7 +101,7 @@ func parseRow(row []interface{}) (data.Meal, error) {
 
 	var err error
 
-	meal.IsFasten, err = strconv.ParseBool(lentenStr)
+	meal.IsLenten, err = strconv.ParseBool(lentenStr)
 	if err != nil {
 		return data.Meal{}, fmt.Errorf("Can't parse lent status: %v", row)
 	}

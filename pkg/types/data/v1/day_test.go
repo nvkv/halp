@@ -51,11 +51,11 @@ func TestFastDetection(t *testing.T) {
 		rand := rand.New(randSrc)
 		date := testhelpers.RandomDate(rand)
 
-		var shouldBeFasten = false
+		var shouldBeAFastDay = false
 		if date.Weekday() == time.Wednesday || date.Weekday() == time.Friday {
-			shouldBeFasten = true
+			shouldBeAFastDay = true
 		}
-		return IsFasten(date) == shouldBeFasten
+		return IsAFastDay(date) == shouldBeAFastDay
 	}
 
 	if err := quick.Check(checkFast, testhelpers.DefaultConfig); err != nil {
@@ -65,11 +65,11 @@ func TestFastDetection(t *testing.T) {
 
 func TestDayFastDetection(t *testing.T) {
 	checkDayFast := func(d Day) bool {
-		var shouldBeFasten = false
+		var shouldBeAFastDay = false
 		if d.Date.Weekday() == time.Wednesday || d.Date.Weekday() == time.Friday {
-			shouldBeFasten = true
+			shouldBeAFastDay = true
 		}
-		return d.IsFasten() == shouldBeFasten
+		return d.IsAFastDay() == shouldBeAFastDay
 	}
 
 	if err := quick.Check(checkDayFast, testhelpers.DefaultConfig); err != nil {
@@ -94,21 +94,21 @@ func TestHolidayDetection(t *testing.T) {
 func TestValidation(t *testing.T) {
 	validate := func(d Day) bool {
 		validation := d.Validate()
-		if d.IsFasten() {
-			var trulyFasten = true
+		if d.IsAFastDay() {
+			var trulyFastDay = true
 			for _, meal := range d.AllMeals() {
-				if meal.IsFasten != true {
-					trulyFasten = false
+				if meal.IsLenten != true {
+					trulyFastDay = false
 					break
 				}
 			}
-			if trulyFasten {
+			if trulyFastDay {
 				return validation == nil
 			} else {
 				if validation == nil {
 					fmt.Printf("%v is %v\n", d.Date, d.Date.Weekday().String())
 					for _, meal := range d.AllMeals() {
-						fmt.Printf("Meal lent status: %v\n", meal.IsFasten)
+						fmt.Printf("Meal lent status: %v\n", meal.IsLenten)
 					}
 				}
 				return validation != nil

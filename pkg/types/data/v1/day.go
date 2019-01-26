@@ -29,7 +29,7 @@ func (d Day) IsHoliday() bool {
 	return IsHoliday(d.Date)
 }
 
-func IsFasten(date time.Time) bool {
+func IsAFastDay(date time.Time) bool {
 	// TODO: This is default Orthodox lenten weekdays
 	// Something more complicated should be implemented later
 	switch date.Weekday() {
@@ -42,8 +42,8 @@ func IsFasten(date time.Time) bool {
 	}
 }
 
-func (d Day) IsFasten() bool {
-	return IsFasten(d.Date)
+func (d Day) IsAFastDay() bool {
+	return IsAFastDay(d.Date)
 }
 
 func (d Day) AllMeals() []Meal {
@@ -63,9 +63,9 @@ func (d Day) Validate() error {
 	// Collect all meals in a slice
 	meals := d.AllMeals()
 	// Fast check
-	if d.IsFasten() {
+	if d.IsAFastDay() {
 		for _, meal := range meals {
-			if meal.IsFasten == false {
+			if meal.IsLenten == false {
 				return fmt.Errorf("%v supposed to be lenten, but meal '%v' was planned, which is not", d.Date, meal.Name)
 			}
 		}
@@ -75,7 +75,7 @@ func (d Day) Validate() error {
 
 func (d Day) String() string {
 	fast := "No fast today!"
-	if d.IsFasten() {
+	if d.IsAFastDay() {
 		fast = "Fast day!"
 	}
 	str := fmt.Sprintf(`

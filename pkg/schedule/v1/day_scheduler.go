@@ -20,12 +20,12 @@ func pickRandomMeal(meals []data.Meal) data.Meal {
 func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 	rand.Seed(time.Now().UTC().UnixNano())
 	isHoliday := data.IsHoliday(date)
-	isFasten := data.IsFasten(date)
+	isAFastDay := data.IsAFastDay(date)
 
 	breakfasts, err := ds.Select(datasource.Query{
-		datasource.MealTypeField: data.Breakfast,
-		datasource.IsFastenField: isFasten,
-		datasource.IsLavishField: isHoliday,
+		datasource.MealTypeField:   data.Breakfast,
+		datasource.IsAFastDayField: isAFastDay,
+		datasource.IsLavishField:   isHoliday,
 	})
 	if err != nil {
 		return data.Day{}, err
@@ -33,9 +33,9 @@ func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 	breakfast := pickRandomMeal(breakfasts)
 
 	lunches, err := ds.Select(datasource.Query{
-		datasource.MealTypeField: data.Lunch,
-		datasource.IsFastenField: isFasten,
-		datasource.IsLavishField: isHoliday,
+		datasource.MealTypeField:   data.Lunch,
+		datasource.IsAFastDayField: isAFastDay,
+		datasource.IsLavishField:   isHoliday,
 	})
 	if err != nil {
 		return data.Day{}, err
@@ -43,9 +43,9 @@ func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 	lunch := pickRandomMeal(lunches)
 
 	dinners, err := ds.Select(datasource.Query{
-		datasource.MealTypeField: data.Dinner,
-		datasource.IsFastenField: isFasten,
-		datasource.IsLavishField: isHoliday,
+		datasource.MealTypeField:   data.Dinner,
+		datasource.IsAFastDayField: isAFastDay,
+		datasource.IsLavishField:   isHoliday,
 	})
 	if err != nil {
 		return data.Day{}, err
