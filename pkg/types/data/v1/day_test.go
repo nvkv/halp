@@ -22,10 +22,49 @@ func (d Day) Generate(rand *rand.Rand, size int) reflect.Value {
 	return reflect.ValueOf(day)
 }
 
-// This is a basic test, it will test only
+func TestAllMeals(t *testing.T) {
+	checkAllMeals := func(d Day) bool {
+		expected := []Meal{
+			d.Breakfast,
+			d.Lunch,
+			d.Dinner,
+			d.Snack,
+		}
+
+		for _, m := range d.ExtraMeals {
+			expected = append(expected, m)
+		}
+		return reflect.DeepEqual(expected, d.AllMeals())
+	}
+
+	if err := quick.Check(checkAllMeals, testhelpers.DefaultConfig); err != nil {
+		t.Error(err)
+	}
+}
+
+// These are basic tests, will test only
 // Wednesday and Friday's Orthodox lent
-func TestLentDetection(t *testing.T) {
-	lent := func(d Day) bool {
+func TestFastDetection(t *testing.T) {
+
+	checkFast := func(seed int64) bool {
+		randSrc := rand.NewSource(seed)
+		rand := rand.New(randSrc)
+		date := testhelpers.RandomDate(rand)
+
+		var shouldBeLenten = false
+		if date.Weekday() == time.Wednesday || date.Weekday() == time.Friday {
+			shouldBeLenten = true
+		}
+		return IsLenten(date) == shouldBeLenten
+	}
+
+	if err := quick.Check(checkFast, testhelpers.DefaultConfig); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestDayFastDetection(t *testing.T) {
+	checkDayFast := func(d Day) bool {
 		var shouldBeLenten = false
 		if d.Date.Weekday() == time.Wednesday || d.Date.Weekday() == time.Friday {
 			shouldBeLenten = true
@@ -33,7 +72,21 @@ func TestLentDetection(t *testing.T) {
 		return d.IsLenten() == shouldBeLenten
 	}
 
-	if err := quick.Check(lent, testhelpers.DefaultConfig); err != nil {
+	if err := quick.Check(checkDayFast, testhelpers.DefaultConfig); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestHolidayDetection(t *testing.T) {
+	checkHoliday := func(d Day) bool {
+		var shouldBeHoliday = false
+		if d.Date.Weekday() == time.Sunday || d.Date.Weekday() == time.Saturday {
+			shouldBeHoliday = true
+		}
+		return shouldBeHoliday == d.IsHoliday()
+	}
+
+	if err := quick.Check(checkHoliday, testhelpers.DefaultConfig); err != nil {
 		t.Error(err)
 	}
 }
