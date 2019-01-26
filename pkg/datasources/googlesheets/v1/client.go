@@ -114,7 +114,7 @@ func parseRow(row []interface{}) (data.Meal, error) {
 	return meal, nil
 }
 
-func fetchAll(credentials, tokenfile, sheetId string) ([]data.Meal, error) {
+func fetchAll(credentials, tokenfile, sheetId string, dataRange string) ([]data.Meal, error) {
 	credBuff, err := ioutil.ReadFile(credentials)
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
@@ -137,8 +137,7 @@ func fetchAll(credentials, tokenfile, sheetId string) ([]data.Meal, error) {
 		return nil, fmt.Errorf("Unable to retrieve Sheets client: %v", err)
 	}
 
-	readRange := "Halp!A2:D"
-	resp, err := srv.Spreadsheets.Values.Get(sheetId, readRange).Do()
+	resp, err := srv.Spreadsheets.Values.Get(sheetId, dataRange).Do()
 	if err != nil {
 		return nil, fmt.Errorf("Unable to retrieve data from sheet: %v", err)
 	}
@@ -157,13 +156,4 @@ func fetchAll(credentials, tokenfile, sheetId string) ([]data.Meal, error) {
 	}
 
 	return meals, nil
-}
-
-func Test(credentials, tokenfile, sheetId string) {
-	meals, err := fetchAll(credentials, tokenfile, sheetId)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Printf("%#v\n", meals)
 }

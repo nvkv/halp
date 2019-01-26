@@ -2,8 +2,9 @@ package config
 
 import (
 	"fmt"
-	"github.com/hashicorp/hcl"
 	"io/ioutil"
+
+	"github.com/hashicorp/hcl"
 )
 
 type Config struct {
@@ -18,6 +19,7 @@ type GSheetsConfig struct {
 	SheetID             string `hcl:"sheet_id"`
 	CredentialsFilePath string `hcl:"credentials_file"`
 	TokenFilePath       string `hcl:"token_file"`
+	Range               string `hcl:"range"`
 }
 
 func ParseConfig(hclText string) (*Config, error) {

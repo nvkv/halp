@@ -9,6 +9,7 @@ type Spreadsheet struct {
 	Credentials string
 	Tokenfile   string
 	SheetID     string
+	Range       string
 	meals       []data.Meal
 }
 
@@ -20,6 +21,7 @@ func (s Spreadsheet) AllMeals() ([]data.Meal, error) {
 		s.Credentials,
 		s.Tokenfile,
 		s.SheetID,
+		s.Range,
 	)
 	if err != nil {
 		return nil, err

@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	"time"
+
 	"github.com/nvkv/halp/pkg/config/v1"
 	"github.com/nvkv/halp/pkg/datasources/googlesheets/v1"
 	"github.com/nvkv/halp/pkg/schedule/v1"
-//	"github.com/nvkv/halp/pkg/types/data/v1"
-//	"github.com/nvkv/halp/pkg/types/datasource/v1"
+	//	"github.com/nvkv/halp/pkg/types/data/v1"
+	//	"github.com/nvkv/halp/pkg/types/datasource/v1"
 )
 
 func main() {
@@ -20,6 +21,7 @@ func main() {
 		Credentials: cfg.Datasource.GoogleSheets.CredentialsFilePath,
 		Tokenfile:   cfg.Datasource.GoogleSheets.TokenFilePath,
 		SheetID:     cfg.Datasource.GoogleSheets.SheetID,
+		Range:       cfg.Datasource.GoogleSheets.Range,
 	}
 
 	day, err := schedule.ScheduleDay(time.Now(), halpSheet)
