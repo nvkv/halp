@@ -7,8 +7,6 @@ import (
 	"github.com/nvkv/halp/pkg/config/v1"
 	"github.com/nvkv/halp/pkg/datasources/googlesheets/v1"
 	"github.com/nvkv/halp/pkg/schedule/v1"
-	//	"github.com/nvkv/halp/pkg/types/data/v1"
-	//	"github.com/nvkv/halp/pkg/types/datasource/v1"
 )
 
 func main() {

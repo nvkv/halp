@@ -50,6 +50,7 @@ func (s Spreadsheet) Select(query datasource.Query) ([]data.Meal, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	for _, meal := range meals {
 		var matching = true
 		for k, v := range query {
