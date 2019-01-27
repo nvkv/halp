@@ -24,11 +24,19 @@ func (d Day) Generate(rand *rand.Rand, size int) reflect.Value {
 
 func TestAllMeals(t *testing.T) {
 	checkAllMeals := func(d Day) bool {
-		expected := []Meal{
+		raw := []Meal{
 			d.Breakfast,
 			d.Lunch,
 			d.Dinner,
 			d.Snack,
+		}
+
+		var expected = []Meal{}
+		// Filter out empty meals, they shouldn't be there
+		for _, m := range raw {
+			if len(m.Name) > 0 {
+				expected = append(expected, m)
+			}
 		}
 
 		for _, m := range d.ExtraMeals {

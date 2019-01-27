@@ -17,6 +17,29 @@ func pickRandomMeal(meals []data.Meal) data.Meal {
 	return meals[rand.Intn(mealCount)]
 }
 
+func nextNDays(from time.Time, n int) []time.Time {
+	var dates = []time.Time{}
+	current := from
+	for i := 0; i < n; i++ {
+		current = current.AddDate(0, 0, 1)
+		dates = append(dates, current)
+	}
+	return dates
+}
+
+func ScheduleWeek(date time.Time, ds datasource.Datasource) ([]data.Day, error) {
+	dates := nextNDays(date, 7)
+	schedule := []data.Day{}
+	for _, d := range dates {
+		day, err := ScheduleDay(d, ds)
+		if err != nil {
+			return nil, err
+		}
+		schedule = append(schedule, day)
+	}
+	return schedule, nil
+}
+
 func ScheduleDay(date time.Time, ds datasource.Datasource) (data.Day, error) {
 	rand.Seed(time.Now().UTC().UnixNano())
 	isHoliday := data.IsHoliday(date)

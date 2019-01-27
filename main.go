@@ -22,10 +22,10 @@ func main() {
 		Range:       cfg.Datasource.GoogleSheets.Range,
 	}
 
-	day, err := schedule.ScheduleDay(time.Now(), halpSheet)
+	schedule, err := schedule.ScheduleWeek(time.Now(), halpSheet)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("%v\n", day)
+	fmt.Printf("%v\n", schedule)
 }

@@ -47,12 +47,22 @@ func (d Day) IsAFastDay() bool {
 }
 
 func (d Day) AllMeals() []Meal {
-	meals := []Meal{
+	rawmeals := []Meal{
 		d.Breakfast,
 		d.Lunch,
 		d.Dinner,
 		d.Snack,
 	}
+
+	// Now we will filter out all meals without a name
+	// Basically it's a safeguard against having "default-value" meals in a schedule
+	var meals = []Meal{}
+	for _, m := range rawmeals {
+		if len(m.Name) > 0 {
+			meals = append(meals, m)
+		}
+	}
+
 	for _, v := range d.ExtraMeals {
 		meals = append(meals, v)
 	}
