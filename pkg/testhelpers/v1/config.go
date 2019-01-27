@@ -17,7 +17,7 @@ func RandomDate(rand *rand.Rand) time.Time {
 	return time.Unix(sec, 0)
 }
 
-func RandomASCIIString() string {
+func RandomLatinString() string {
 	var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/-()[]")
 	n := rand.Intn(1024)
 	b := make([]rune, n)

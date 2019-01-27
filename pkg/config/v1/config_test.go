@@ -10,10 +10,10 @@ import (
 
 func TestParser(t *testing.T) {
 	checkParser := func(i int) bool {
-		sheetid := testhelpers.RandomASCIIString()
-		credspath := testhelpers.RandomASCIIString()
-		tokenfile := testhelpers.RandomASCIIString()
-		rangeStr := testhelpers.RandomASCIIString()
+		sheetid := testhelpers.RandomLatinString()
+		credspath := testhelpers.RandomLatinString()
+		tokenfile := testhelpers.RandomLatinString()
+		rangeStr := testhelpers.RandomLatinString()
 		cfg := Config{
 			Datasource: DatasourceConfig{
 				GoogleSheets: GSheetsConfig{
