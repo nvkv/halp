@@ -103,6 +103,5 @@ func (d Day) String() string {
 			str += fmt.Sprintf("%s\n", meal)
 		}
 	}
-
 	return str
 }
