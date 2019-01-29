@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/nvkv/halp/pkg/config/v1"
 	"github.com/nvkv/halp/pkg/datasources/googlesheets/v1"
+	"github.com/nvkv/halp/pkg/outputs/console/v1"
 	"github.com/nvkv/halp/pkg/schedule/v1"
 )
 
@@ -27,5 +27,9 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("%v\n", schedule)
+	outp := console.ConsoleOutput{}
+	oerr := outp.Send(schedule)
+	if oerr != nil {
+		panic(oerr)
+	}
 }
