@@ -21,7 +21,7 @@ func main() {
 		cli.StringFlag{
 			Name:  "config",
 			Value: "config.hcl",
-			Usage: "Where to look up config file",
+			Usage: "Where to look up a config file",
 		},
 	}
 

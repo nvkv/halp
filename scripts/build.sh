@@ -12,7 +12,7 @@ VERSION=${HALP_VERSION:-alpha}
 
 TARGET_GOOSES=("linux" "darwin")
 
-# No need to cross-compile in for docker anyway
+# No need to cross-compile it for docker anyway
 if [ ! -z ${1} ] && [ ${1} == "linux" ]; then
 		TARGET_GOOSES=("linux")
 fi
