@@ -44,11 +44,10 @@ func ParseConfig(hclText string) (*Config, error) {
 }
 
 func LoadConfig(configpath string) (Config, error) {
-	cfgpath := configpath
-	if len(cfgpath) == 0 {
-		cfgpath = DefaultConfigLocation()
+	if len(configpath) == 0 {
+		configpath = DefaultConfigLocation()
 	}
-	data, err := ioutil.ReadFile(cfgpath)
+	data, err := ioutil.ReadFile(configpath)
 	if err != nil {
 		return Config{}, err
 	}
