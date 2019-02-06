@@ -14,13 +14,13 @@ const (
 func (t MealType) String() string {
 	switch t {
 	case Breakfast:
-		return "Breakfast"
+		return "🍳 Breakfast"
 	case Lunch:
-		return "Lunch"
+		return "🍽 Lunch"
 	case Dinner:
-		return "Dinner"
+		return "🍲 Dinner"
 	case Snack:
-		return "Snack"
+		return "🥪 Snack"
 	default:
 		return "Unknown type of meal"
 	}

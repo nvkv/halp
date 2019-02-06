@@ -12,6 +12,11 @@ VERSION=${HALP_VERSION:-alpha}
 
 TARGET_GOOSES=("linux" "darwin")
 
+# No need to cross-compile in for docker anyway
+if [ ! -z ${1} ] && [ ${1} == "linux" ]; then
+		TARGET_GOOSES=("linux")
+fi
+
 for OS in ${TARGET_GOOSES[@]}
 do
 		echo "Building for ${OS}"

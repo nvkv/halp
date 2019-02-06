@@ -9,6 +9,12 @@ import (
 
 type Config struct {
 	Datasource DatasourceConfig `hcl:"datasource"`
+	Telegram   TelegramConfig   `hcl:"telegram"`
+}
+
+type TelegramConfig struct {
+	Token            string  `hcl:"token"`
+	WhitelistedChats []int64 `hcl:"whitelisted_chats"`
 }
 
 type DatasourceConfig struct {
@@ -37,14 +43,21 @@ func ParseConfig(hclText string) (*Config, error) {
 	return result, nil
 }
 
-func LoadDefaultConfig() (Config, error) {
-	data, err := ioutil.ReadFile(DefaultConfigLocation())
+func LoadConfig(configpath string) (Config, error) {
+	cfgpath := configpath
+	if len(cfgpath) == 0 {
+		cfgpath = DefaultConfigLocation()
+	}
+	data, err := ioutil.ReadFile(cfgpath)
 	if err != nil {
 		return Config{}, err
 	}
 
 	cfg, err := ParseConfig(string(data))
-	return *cfg, err
+	if err != nil {
+		return Config{}, err
+	}
+	return *cfg, nil
 }
 
 func DefaultConfigLocation() string {

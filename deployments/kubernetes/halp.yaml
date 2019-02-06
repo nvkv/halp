@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: halp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: halp
+  template:
+    metadata:
+      labels:
+        app: halp
+    spec:
+      containers:
+        - name: halp
+          image: sdfgh153/halp:v0
+          imagePullPolicy: Always
+          command: ["/app/halp"]
+          args: ["--config=cfg/config.hcl"]
+          volumeMounts:
+            - name: cfg
+              mountPath: "/app/cfg"
+              readOnly: false
+      volumes:
+        - name: cfg
+          secret:
+            secretName: halp-config
+            defaultMode: 511

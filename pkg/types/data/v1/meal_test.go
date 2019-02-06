@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"reflect"
+	"strings"
 	"testing"
 	"testing/quick"
 
@@ -50,13 +51,13 @@ func TestMealTypeString(t *testing.T) {
 		str := t.String()
 		switch t {
 		case Breakfast:
-			return str == "Breakfast"
+			return strings.HasSuffix(str, "Breakfast")
 		case Lunch:
-			return str == "Lunch"
+			return strings.HasSuffix(str, "Lunch")
 		case Dinner:
-			return str == "Dinner"
+			return strings.HasSuffix(str, "Dinner")
 		case Snack:
-			return str == "Snack"
+			return strings.HasSuffix(str, "Snack")
 		default:
 			return false
 		}
